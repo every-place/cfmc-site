@@ -17,6 +17,10 @@ Built with [Astro](https://astro.build) as a static site and hosted on Cloudflar
 
 Site-wide settings (contact email, Facebook / YouTube / Instagram links) live in `src/data/site.json`. Links left blank are hidden.
 
+## Coming Soon switch
+
+While `"comingSoon": true` is set in `src/data/site.json`, every page shows only a Coming Soon page (logo, contact email, caregiver support line), search engines are told not to index it, and the sitemap and RSS feed are empty. The blog editor at `/admin` keeps working, so posts can be written before launch. **To launch, change it to `false` and commit.**
+
 ## Common edits
 
 **New blog post:** add a file to `src/content/blog/`, e.g. `my-post.md`. The file name becomes the URL (`/blog/my-post`).
