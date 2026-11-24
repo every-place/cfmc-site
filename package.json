@@ -8,10 +8,15 @@
     "build": "astro build",
     "preview": "astro preview"
   },
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.6",
     "astro": "5.18.2"
+  },
+  "devDependencies": {
+    "wrangler": "^4.167.0"
   }
 }

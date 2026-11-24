@@ -1,0 +1,11 @@
+// Cloudflare Workers (static assets) config. Cloudflare's dashboard builds with
+// `npm run build` and deploys with `npx wrangler deploy`, which serves ./dist.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cfmc-site",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
