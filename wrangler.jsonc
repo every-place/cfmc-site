@@ -4,6 +4,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "cfmc-site",
   "compatibility_date": "2026-11-01",
+  // Tiny Worker that only handles the blog editor (/admin) and its GitHub sign-in (/oauth/*).
+  // Every other request is the static site in ./dist.
+  "main": "worker/index.js",
   // Serves the site on the real domain. Cloudflare creates the DNS records for these
   // automatically on deploy (the zone is on the same Cloudflare account).
   "routes": [
@@ -14,6 +17,8 @@
   "previews": {},
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/oauth/*", "/admin", "/admin/*"],
     "not_found_handling": "404-page"
   }
 }

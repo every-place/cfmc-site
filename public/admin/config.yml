@@ -1,0 +1,139 @@
+# Blog editor for caringformycaregivers.com (Sveltia CMS).
+# Kristen opens https://caringformycaregivers.com/admin, signs in, writes, and clicks Save.
+# Each save is a commit to main, which redeploys the site in a minute or two.
+# Docs: https://github.com/sveltia/sveltia-cms
+
+backend:
+  name: github
+  repo: every-place/cfmc-site
+  branch: main
+  # Sign-in is handled by our own Worker (worker/index.js) on the live domain.
+  base_url: https://caringformycaregivers.com
+  auth_endpoint: oauth/authorize
+  auth_scope: public_repo
+  commit_messages:
+    create: 'New post: {{slug}}'
+    update: 'Update {{collection}}: {{slug}}'
+    delete: 'Delete {{collection}}: {{slug}}'
+    uploadMedia: 'Upload photo: {{path}}'
+    deleteMedia: 'Delete photo: {{path}}'
+
+app_title: Caring for My Caregivers Editor
+site_url: https://caringformycaregivers.com
+display_url: https://caringformycaregivers.com
+logo:
+  src: /images/logo.jpg
+
+# Photos go into the site itself. Big phone photos are shrunk and converted to WebP
+# automatically so pages stay fast.
+media_folder: public/images/blog
+public_folder: /images/blog
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 1600
+          height: 1600
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+output:
+  omit_empty_optional_fields: true
+
+collections:
+  - name: blog
+    label: Blog Posts
+    label_singular: Blog Post
+    description: Write a new post or edit an old one. Turn on "Draft" to save it without showing it on the site yet.
+    folder: src/content/blog
+    create: true
+    extension: md
+    format: frontmatter
+    # The web address comes from the title, e.g. /blog/when-mom-forgot-the-cookies
+    slug: '{{slug}}'
+    summary: '{{title}} · {{date}}{{draft | ternary(" · DRAFT", "")}}'
+    sortable_fields:
+      fields: [date, title]
+      default:
+        field: date
+        direction: descending
+    preview_path: blog/{{slug}}
+    fields:
+      - name: title
+        label: Title
+        widget: string
+      - name: description
+        label: Short summary
+        hint: One or two sentences. Shown in the blog list and when the post is shared on Facebook.
+        widget: text
+      - name: date
+        label: Date
+        widget: datetime
+        format: YYYY-MM-DD
+        time_format: false
+        default: '{{now}}'
+      - name: image
+        label: Cover photo
+        hint: Optional. Shown at the top of the post and on Facebook shares.
+        widget: image
+        required: false
+      - name: draft
+        label: Draft (hide from the site)
+        widget: boolean
+        default: false
+        required: false
+      - name: body
+        label: Post
+        widget: markdown
+      # Kept for the site's own use; Kristen doesn't need to see these.
+      - name: author
+        widget: hidden
+        default: Kristen Dean
+      - name: membersOnly
+        widget: hidden
+        default: false
+
+  - name: pages
+    label: Site Info
+    description: The caregiver resource list.
+    files:
+      - name: resources
+        label: Caregiver Resources
+        file: src/data/resources.json
+        format: json
+        fields:
+          - name: crisis
+            label: Crisis and urgent support
+            widget: list
+            summary: '{{name}}'
+            fields: &resource
+              - { name: name, label: Name, widget: string }
+              - { name: url, label: Website, widget: string, required: false }
+              - { name: phone, label: Phone, widget: string, required: false }
+              - { name: description, label: Description, widget: text }
+          - name: national
+            label: National organizations (U.S.)
+            widget: list
+            summary: '{{name}}'
+            fields: *resource
+          - name: international
+            label: Outside the U.S.
+            widget: list
+            summary: '{{name}}'
+            fields: *resource
+          - name: local
+            label: Local resources (grouped by location)
+            widget: list
+            summary: '{{location}}: {{name}}'
+            fields:
+              - { name: location, label: Location, widget: string, hint: 'e.g. "Washington: Spokane area". Entries with the same location are grouped together.' }
+              - { name: name, label: Name, widget: string }
+              - { name: url, label: Website, widget: string, required: false }
+              - { name: phone, label: Phone, widget: string, required: false }
+              - { name: description, label: Description, widget: text }
