@@ -4,9 +4,9 @@ import data from '../data/resources.json';
 
 type Resource = { name: string; url: string; phone?: string; description: string; location?: string };
 const groups: { title: string; intro?: string; items: Resource[] }[] = [
+  { title: 'If you are struggling right now', items: data.crisis },
   { title: 'National organizations (U.S.)', items: data.national },
   { title: 'Outside the U.S.', items: data.international },
-  { title: 'If you are in crisis', items: data.crisis },
 ];
 // Local resources are grouped by location (e.g. "Texas: Dallas area").
 const local = data.local as Resource[];
