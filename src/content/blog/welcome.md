@@ -1,7 +1,11 @@
 ---
-title: "Welcome to Caring for My Caregivers"
-description: "A new home for encouragement, practical tips, and resources for dementia and Alzheimer's caregivers."
+title: Welcome to Caring for My Caregivers
+description: A new home for encouragement, practical tips, and resources for dementia and Alzheimer's caregivers.
 date: 2026-11-24
+image: /images/blog/cfmc-logo.webp
+draft: false
+author: Kristen Dean
+membersOnly: false
 ---
 
 Welcome! If you are caring for someone you love who is living with dementia or Alzheimer's, you are in the right place.
