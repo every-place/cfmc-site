@@ -122,3 +122,10 @@ main { display: block; }
 .site-footer .container { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; }
 .site-footer nav { display: flex; gap: 8px 18px; flex-wrap: wrap; }
 .site-footer small { display: block; opacity: .8; margin-top: 8px; }
+
+/* Coming soon (site.json "comingSoon": true) */
+.coming-soon { min-height: 100vh; display: flex; align-items: center; text-align: center; padding: 48px 0; background: radial-gradient(ellipse at top, var(--cream) 0%, var(--cream-soft) 70%); }
+.coming-soon img { width: 200px; height: 200px; margin: 0 auto 24px; border-radius: 50%; }
+.coming-soon h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); }
+.coming-soon .btn { margin: 8px 0 32px; overflow-wrap: anywhere; }
+.coming-soon .note { text-align: left; }

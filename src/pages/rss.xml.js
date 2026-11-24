@@ -3,7 +3,8 @@ import { getCollection } from 'astro:content';
 import site from '../data/site.json';
 
 export async function GET(context) {
-  const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  // While the Coming Soon switch is on, the feed is empty.
+  const posts = site.comingSoon ? [] : (await getCollection('blog', ({ data }) => !data.draft))
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   return rss({
     title: site.name,
