@@ -49,7 +49,7 @@ npm run build    # outputs to dist/
 
 ## Deploying on Cloudflare
 
-The site deploys as a Cloudflare Worker with static assets (config in `wrangler.jsonc`). In the Cloudflare dashboard: **Workers & Pages → Create application → Import a repository**, pick `cfmc-site`, name the project `cfmc-site` (it must match `name` in `wrangler.jsonc`), build command `npm run build`, deploy command `npx wrangler deploy`. Every push to `main` redeploys.
+The site deploys as a Cloudflare Worker with static assets (config in `wrangler.jsonc`). In the Cloudflare dashboard: **Workers & Pages → Create application → Import a repository**, pick `cfmc-site`, name the project `cfmc-site` (it must match `name` in `wrangler.jsonc`), build command `npm run build`, deploy command `npx wrangler deploy`. Every push to `main` redeploys. The `routes` in `wrangler.jsonc` attach caringformycaregivers.com and www automatically on deploy.
 
 It also works on classic Cloudflare Pages (preset Astro, build `npm run build`, output `dist`).
 

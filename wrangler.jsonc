@@ -4,6 +4,12 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "cfmc-site",
   "compatibility_date": "2026-11-01",
+  // Serves the site on the real domain. Cloudflare creates the DNS records for these
+  // automatically on deploy (the zone is on the same Cloudflare account).
+  "routes": [
+    { "pattern": "caringformycaregivers.com", "custom_domain": true },
+    { "pattern": "www.caringformycaregivers.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page"
