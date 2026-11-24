@@ -47,9 +47,11 @@ npm run dev      # http://localhost:4321
 npm run build    # outputs to dist/
 ```
 
-## Deploying on Cloudflare Pages
+## Deploying on Cloudflare
 
-Cloudflare Pages settings: framework preset **Astro**, build command `npm run build`, build output directory `dist`, production branch `main`. Node version comes from `.nvmrc`.
+The site deploys as a Cloudflare Worker with static assets (config in `wrangler.jsonc`). In the Cloudflare dashboard: **Workers & Pages → Create application → Import a repository**, pick `cfmc-site`, name the project `cfmc-site` (it must match `name` in `wrangler.jsonc`), build command `npm run build`, deploy command `npx wrangler deploy`. Every push to `main` redeploys.
+
+It also works on classic Cloudflare Pages (preset Astro, build `npm run build`, output `dist`).
 
 When adding the custom domain, only the `@` and `www` web records change. Never edit the Zoho email records (MX, the SPF TXT record, and `zoho._domainkey`).
 
