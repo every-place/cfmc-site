@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+<Base>
+  <section class="hero">
+    <div class="container">
+      <img src="/images/logo.jpg" alt="Caring for My Caregivers logo" width="180" height="180" />
+      <h1>You don't have to do this alone.</h1>
+      <p class="lead">{site.tagline}</p>
+      <div class="actions">
+        <a class="btn" href="/resources">Find caregiver resources</a>
+        <a class="btn ghost" href="/blog">Read the blog</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        <div class="card">
+          <h3>Encouragement &amp; tips</h3>
+          <p>Real-life help for the everyday moments of caring for someone with memory loss, from a caregiver who has been there.</p>
+          <a class="more" href="/blog">Visit the blog &rarr;</a>
+        </div>
+        <div class="card">
+          <h3>Grandma Rose &amp; Lily</h3>
+          <p>Gentle stories that help parents explain dementia to children, and remind all of us to look for the love in each moment.</p>
+          <a class="more" href="/stories">Meet them &rarr;</a>
+        </div>
+        <div class="card">
+          <h3>Caregiver resources</h3>
+          <p>Many families don't know how much help is out there. Start with these trusted helplines and organizations.</p>
+          <a class="more" href="/resources">See resources &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section alt">
+      <div class="container narrow">
+        <p class="eyebrow">From the blog</p>
+        <ul class="post-list">
+          {posts.map((p) => (
+            <li>
+              <h2><a href={`/blog/${p.id}`}>{p.data.title}</a></h2>
+              <p class="meta">{fmt(p.data.date)}</p>
+              <p>{p.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container narrow">
+      <div class="note">
+        <h3>Coming soon</h3>
+        <p>An activity book with ideas to engage your loved one at every stage of the disease, and a membership for more personal support from Kristen. Check back soon.</p>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+<Base title="Blog" description="Encouragement and practical tips for dementia and Alzheimer's caregivers.">
+  <div class="container narrow">
+    <header class="page-head">
+      <p class="eyebrow">Blog</p>
+      <h1>Encouragement for the journey</h1>
+    </header>
+    <ul class="post-list" style="margin-bottom:56px">
+      {posts.map((p) => (
+        <li>
+          <h2><a href={`/blog/${p.id}`}>{p.data.title}</a></h2>
+          <p class="meta">{fmt(p.data.date)} &middot; {p.data.author}</p>
+          <p>{p.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Base>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://caringformycaregivers.com/sitemap-index.xml
