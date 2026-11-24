@@ -1,5 +1,5 @@
 ---
-title: TEST Blog Poat
+title: TEST Blog Post
 description: This is a test of the CFMC Blog post tool.
 date: 2026-11-23
 draft: true
