@@ -2,7 +2,7 @@
 
 Website for [caringformycaregivers.com](https://caringformycaregivers.com): encouragement, tips, and resources for dementia and Alzheimer's caregivers, by Kristen Dean.
 
-Built with [Astro](https://astro.build) as a static site and hosted on Cloudflare Pages.
+Built with [Astro](https://astro.build) as a static site and hosted on Cloudflare (Workers static assets).
 
 ## Pages
 
@@ -31,7 +31,28 @@ date: 2026-12-01
 Write the post here in plain text. Blank lines start new paragraphs.
 ```
 
-Set `draft: true` to hide a post. A browser-based editor for Kristen is planned so she won't need to touch files.
+Set `draft: true` to hide a post. Kristen normally uses the blog editor instead (below).
+
+## Blog editor (/admin)
+
+Kristen writes posts at **https://caringformycaregivers.com/admin**, on a computer, phone, or tablet. It's [Sveltia CMS](https://github.com/sveltia/sveltia-cms): a Word-like editor with photo upload. Each **Save** commits the post to `main` on GitHub, and Cloudflare redeploys the site in a minute or two. On a phone or tablet she can use **Add to Home Screen** to get an app icon for it.
+
+- Editor settings (fields, photo folder, the Caregiver Resources editor): `public/admin/config.yml`
+- Sign-in: `worker/index.js`, a small Worker that handles only `/admin` and `/oauth/*`. Everything else is served straight from `dist`.
+- Photos are resized to 1600px and saved as WebP in `public/images/blog/`.
+- Kristen signs in with her own free GitHub account, which must be a collaborator on this repo.
+
+### One-time setup
+
+1. **GitHub OAuth app.** On GitHub: profile picture → **Settings** → **Developer settings** → **OAuth Apps** → **New OAuth App**.
+   - Application name: `Caring for My Caregivers Editor`
+   - Homepage URL: `https://caringformycaregivers.com`
+   - Authorization callback URL: `https://caringformycaregivers.com/oauth/callback`
+   - Click **Register application**, copy the **Client ID**, then click **Generate a new client secret** and copy it.
+2. **Cloudflare secrets.** Cloudflare dashboard → **Workers & Pages** → `cfmc-site` → **Settings** → **Variables and Secrets** → **Add**. Type **Secret**, name `GITHUB_CLIENT_ID`, paste the Client ID, then **Deploy**. Repeat for `GITHUB_CLIENT_SECRET` with the client secret.
+3. **Kristen's login.** She creates a free account at https://github.com/signup (her site email works). Then on this repo: **Settings** → **Collaborators** → **Add people** → her username. She accepts the invitation email.
+
+To test locally, put the same two values in a `.dev.vars` file (git-ignored), run `npm run build` and `npx wrangler dev`.
 
 **Add a local resource:** add an entry to the `local` list in `src/data/resources.json`. Entries are grouped by `location`:
 
@@ -57,4 +78,4 @@ When adding the custom domain, only the `@` and `www` web records change. Never 
 
 ## Planned later
 
-Stripe memberships (including international), a downloads store for the activity book, a Patreon/Facebook tie-in, and a simple browser editor for blog posts. The blog schema already has a `membersOnly` flag reserved for the membership phase.
+Stripe memberships (including international), a downloads store for the activity book, and a Patreon/Facebook tie-in. The blog schema already has a `membersOnly` flag reserved for the membership phase.

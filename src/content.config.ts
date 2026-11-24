@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 // Blog posts live in src/content/blog as Markdown files.
-// A simple browser editor (e.g. Decap/Sveltia CMS) can write to this same folder later.
+// The blog editor at /admin (Sveltia CMS, public/admin/config.yml) writes to this same folder.
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
