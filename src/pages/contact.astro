@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+const socials = [
+  { url: site.facebookUrl, label: 'Facebook' },
+  { url: site.youtubeUrl, label: 'YouTube' },
+  { url: site.instagramUrl, label: 'Instagram' },
+].filter((s) => s.url);
+---
+<Base title="Contact" description="Get in touch with Kristen at Caring for My Caregivers.">
+  <div class="container narrow">
+    <header class="page-head">
+      <p class="eyebrow">Contact</p>
+      <h1>We'd love to hear from you.</h1>
+      <p class="lead">Questions, stories from your own caregiving journey, or a local resource we should add: Kristen reads every message.</p>
+    </header>
+    <div class="prose">
+      {site.contactEmail ? (
+        <p><a class="btn" href={`mailto:${site.contactEmail}`}>Email {site.contactEmail}</a></p>
+      ) : (
+        <p>Our contact email is being set up. Please check back soon.</p>
+      )}
+      {socials.length > 0 && (
+        <p>You can also find Kristen on {socials.map((s, i) => <>{i > 0 && (i === socials.length - 1 ? ' and ' : ', ')}<a href={s.url} rel="noopener">{s.label}</a></>)}.</p>
+      )}
+      <div class="note">
+        <p>If you or your loved one needs urgent help, call your local emergency number. In the U.S., the Alzheimer's Association Helpline is available 24/7 at <strong>1-800-272-3900</strong>.</p>
+      </div>
+    </div>
+  </div>
+</Base>

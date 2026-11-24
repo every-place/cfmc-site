@@ -1,0 +1,58 @@
+{
+  "national": [
+    {
+      "name": "Alzheimer's Association 24/7 Helpline",
+      "url": "https://www.alz.org/help-support/resources/helpline",
+      "phone": "1-800-272-3900",
+      "description": "Free, confidential support any time, day or night, from specialists and master's-level clinicians. Help is available in many languages."
+    },
+    {
+      "name": "Alzheimer's Foundation of America",
+      "url": "https://alzfdn.org",
+      "phone": "1-866-232-8484",
+      "description": "A helpline staffed by licensed social workers, plus education and programs for families."
+    },
+    {
+      "name": "Eldercare Locator",
+      "url": "https://eldercare.acl.gov",
+      "phone": "1-800-677-1116",
+      "description": "A public service that connects you with local services for older adults and caregivers, such as meals, transportation, and in-home help."
+    },
+    {
+      "name": "Family Caregiver Alliance",
+      "url": "https://www.caregiver.org",
+      "description": "Fact sheets, online support groups, and state-by-state information on services for family caregivers."
+    },
+    {
+      "name": "National Institute on Aging: Alzheimer's and Dementia",
+      "url": "https://www.nia.nih.gov/health/alzheimers-and-dementia",
+      "description": "Reliable, plain-language information about the disease, caregiving, and research from the U.S. government."
+    },
+    {
+      "name": "ARCH National Respite Network",
+      "url": "https://archrespite.org",
+      "description": "Help finding respite care, so you can take a break while your loved one is cared for."
+    },
+    {
+      "name": "AARP Family Caregiving",
+      "url": "https://www.aarp.org/caregiving/",
+      "description": "Guides on care planning, finances, and legal matters, and a resource finder for caregivers."
+    }
+  ],
+  "international": [
+    {
+      "name": "Alzheimer's Disease International",
+      "url": "https://www.alzint.org",
+      "description": "The worldwide federation of Alzheimer associations. Use its member list to find the association in your country."
+    }
+  ],
+  "crisis": [
+    {
+      "name": "988 Suicide & Crisis Lifeline (U.S.)",
+      "url": "https://988lifeline.org",
+      "phone": "Call or text 988",
+      "description": "Caregiving can be crushing, and caregivers matter too. If you are feeling hopeless or thinking about suicide, free and confidential support is available 24/7 by phone, text, or chat."
+    }
+  ],
+  "local": []
+}

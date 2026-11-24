@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import data from '../data/resources.json';
+
+type Resource = { name: string; url: string; phone?: string; description: string; location?: string };
+const groups: { title: string; intro?: string; items: Resource[] }[] = [
+  { title: 'If you are struggling right now', items: data.crisis },
+  { title: 'National organizations (U.S.)', items: data.national },
+  { title: 'Outside the U.S.', items: data.international },
+];
+// Local resources are grouped by location (e.g. "Texas: Dallas area").
+const local = data.local as Resource[];
+const byLocation = local.reduce<Record<string, Resource[]>>((acc, r) => {
+  const key = r.location ?? 'Other';
+  (acc[key] ||= []).push(r);
+  return acc;
+}, {});
+---
+<Base title="Caregiver Resources" description="Trusted helplines, organizations, and local support for dementia and Alzheimer's caregivers.">
+  <div class="container narrow">
+    <header class="page-head">
+      <p class="eyebrow">Resources</p>
+      <h1>Help is closer than you think.</h1>
+      <p class="lead">Many family caregivers don't know these services exist. Most are free. Save this page, and share it with someone who needs it.</p>
+    </header>
+
+    {groups.map((g) => (
+      <section>
+        <h2>{g.title}</h2>
+        {g.items.map((r) => (
+          <div class="resource">
+            <h3><a href={r.url} rel="noopener" target="_blank">{r.name}</a></h3>
+            {r.phone && <div class="phone">{r.phone}</div>}
+            <p>{r.description}</p>
+          </div>
+        ))}
+      </section>
+    ))}
+
+    <section>
+      <h2>Local support near you</h2>
+      {Object.keys(byLocation).length === 0 ? (
+        <div class="note">
+          <p>We're gathering local support groups, adult day programs, and respite options, organized by location. Know a great local resource? <a href="/contact">Tell us about it</a>.</p>
+        </div>
+      ) : (
+        Object.entries(byLocation).map(([loc, items]) => (
+          <div>
+            <h3 style="margin-top:1.5em">{loc}</h3>
+            {items.map((r) => (
+              <div class="resource">
+                <h3><a href={r.url} rel="noopener" target="_blank">{r.name}</a></h3>
+                {r.phone && <div class="phone">{r.phone}</div>}
+                <p>{r.description}</p>
+              </div>
+            ))}
+          </div>
+        ))
+      )}
+    </section>
+
+    <p class="meta" style="margin:40px 0 56px">Links go to outside organizations that Caring for My Caregivers is not affiliated with. This site shares encouragement and general information, not medical advice.</p>
+  </div>
+</Base>
